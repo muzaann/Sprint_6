@@ -1,6 +1,5 @@
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium import webdriver
 
 
 class BasePage:
@@ -9,7 +8,7 @@ class BasePage:
         self.driver = driver
 
     def wait_and_find_element(self, locator):
-        WebDriverWait(self.driver, 10).until(expected_conditions.visibility_of_element_located(locator))
+        WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located(locator))
         return self.driver.find_element(*locator)
 
     def click_on_element(self, locator):
@@ -26,6 +25,11 @@ class BasePage:
 
     def switch_to_window(self, window):
         return self.driver.switch_to.window(self.driver.window_handles[window])
+
+    def scroll_and_click_with_wait(self, locator):
+        self.scroll_to_element(locator)
+        self.wait_and_find_element(locator)
+        self.click_on_element(locator)
 
 
 

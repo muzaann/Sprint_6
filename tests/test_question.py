@@ -1,6 +1,5 @@
 import allure
 from pages.question_page import QuestionPage
-from locators.question_locators import QuestionPageLocator
 import pytest
 from data import TestData
 
@@ -24,11 +23,8 @@ class TestQuestionPage:
                          Кликаем на вопрос, проверяем отображение и текст ответа')
     def test_answers(self, driver, num, answer_text):
         question_page = QuestionPage(driver)
-        question_page.scroll_to_element(QuestionPageLocator.LAST_QUESTION_LOCATOR)
-        result = question_page.click_on_element_and_get_text(
-            QuestionPageLocator.QUESTION_LOCATOR,
-            QuestionPageLocator.ANSWER_LOCATOR,
-            num
-        )
+        question_page.accept_cookie()
+        question_page.scroll_to_last_question()
+        result = question_page.click_on_element_and_get_text(num)
         assert question_page.check_answer_text(result, answer_text), \
             f'Ожидаемый результат: "{answer_text}", фактический результат: "{result}"'

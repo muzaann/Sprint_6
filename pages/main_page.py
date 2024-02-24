@@ -1,23 +1,35 @@
+import allure
 from pages.base_page import BasePage
-import time
+from locators.main_page_locators import MainPageLocator
+
+
 
 class MainPage(BasePage):
     def __init__(self, driver):
-        BasePage.__init__(self, driver)
+        super().__init__(driver)
 
-    def check_click_logo_scooter(self, locator_order_button, locator_logo_scooter):
-        self.click_on_element(locator_order_button)
-        self.click_on_element(locator_logo_scooter)
+    @allure.step ('Клик по лого "Самокат" из окна оформления заказа')
+    def check_click_logo_scooter(self):
+        self.click_on_element(MainPageLocator.ORDER_BUTTON_HEADER)
+        self.click_on_element(MainPageLocator.LOGO_SCOOTER_LOCATOR)
+    @allure.step ('Проверка текста на главной странице для подтверждения перехода на главную страницу')
+    def get_text_on_main_page(self):
+        return self.get_text_by_element(MainPageLocator.TEXT_SCOOTER)
 
-    def check_click_logo_dzen(self, locator_logo_dzen, number, pop_up_window_locator, close_button_logo):
-        self.click_on_element(locator_logo_dzen)
-
-        self.switch_to_window(number)
-
-        if self.wait_and_find_element(pop_up_window_locator):
-            self.click_on_element(close_button_logo)
+    @allure.step ('Клик по лого "Яндекс", переход к открывшемуся окну, закрытие всплывающего окна "Яндекс.Браузер", если оно появилось')
+    def check_click_logo_dzen(self):
+        self.click_on_element(MainPageLocator.DZEN_LOGO_BUTTON_LOCATOR)
+        self.switch_to_window(1)
+        if self.wait_and_find_element(MainPageLocator.WINDOW_TEXT):
+            self.click_on_element(MainPageLocator.ClOSE_WINDOWS_BUTTON)
         else:
-            print('Не появилось  всплывающее окно Яндекс.Браузер')
+            pass
+
+    @allure.step('Проверка наличия на странице шапки сайта "Дзен"')
+    def check_search_field(self):
+        return self.wait_and_find_element(MainPageLocator.SEARCH_DZEN_BUTTON).get_attribute('aria-label')
+
+
 
 
 

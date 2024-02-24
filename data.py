@@ -13,3 +13,7 @@ class TestData:
     adress = ('Полковая, д. 3', 'Лубянка д. 12')
     phone = ('89998887766', '89991112233')
     comment = ('Не звонить в домофон, спит ребенок', 'Домофон не работает, звоните на мобильный')
+    metro_station = ("Театральная", "Красные Ворота")
+    delivery_date = ("react-datepicker__day react-datepicker__day--028", "react-datepicker__day react-datepicker__day--002 react-datepicker__day--weekend react-datepicker__day--outside-month")
+    time_rent = ("четверо суток", "сутки")
+    color_scooter = ("black", "grey")
